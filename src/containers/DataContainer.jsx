@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Button } from 'react-bootstrap';
 import Loader from 'react-loader-spinner';
+import { Link } from 'react-router-dom';
 
 export default class DataContainer extends Component {
   state = {
@@ -9,7 +10,8 @@ export default class DataContainer extends Component {
   }
 
   fetchData = () => {
-    let url = `https://randomuser.me/api/?page=1&results=10&seed=abc&nat=fr`;
+    const { id } = 0;
+    let url = `https://randomuser.me/api/?page=${id}&results=10&seed=zqsd&nat=fr`;
     Axios.get(url)
       .then(response => {
         this.setState({ data: response.data })
@@ -23,6 +25,7 @@ export default class DataContainer extends Component {
 
   render = () => {
     const { data } = this.state;
+    const { id } = 0;
 
     if (!data) {
       return (
@@ -39,15 +42,17 @@ export default class DataContainer extends Component {
 
     if (data.results) {
       return (
-        <ListGroup>
-          {data.results.map((item, index) =>
-            <ListGroup.Item>
-              {/* <Link to={`/${resource}/${id}`}> */}
-              {item.name.title} {item.name.first} {item.name.last}
-              {/* </Link> */}
-            </ListGroup.Item>
-          )}
-        </ListGroup>
+        <div>
+          {/* <h1>Page</h1> */}
+          <Button>Page suivante</Button>
+          <ListGroup>
+            {data.results.map((item, index) =>
+              <ListGroup.Item>
+                {item.name.title} {item.name.first} {item.name.last}
+              </ListGroup.Item>
+            )}
+          </ListGroup>
+        </div>
       );
     }
   }
