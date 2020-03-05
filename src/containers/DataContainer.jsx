@@ -58,7 +58,7 @@ export default class DataContainer extends Component {
           <ListGroup>
             {data.results.map((item, index) =>
               <ListGroup.Item>
-                <Link to={`/${this.props.match.params.id}/profile`}>
+                <Link to={`/${data.info.page}/profile`}>
                   {item.name.title} {item.name.first} {item.name.last}
                 </Link>
               </ListGroup.Item>
