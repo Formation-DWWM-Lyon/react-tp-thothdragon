@@ -29,12 +29,19 @@ function App() {
           </Navbar.Collapse>
         </Navbar>
       </header>
-      
+
       <BrowserRouter>
         <Switch>
           {/* <Route exact path="/:id(\d+)" component={DataContainer} /> */}
-          <Route exact path="/" component={DataContainer} />
-          <Route exact path="/:id(\d+)/profile" component={DataContainer} />
+          <Route exact path="/">
+            <DataContainer type="list" />
+          </Route>
+          <Route exact path="/person/:id(\d+)">
+            <DataContainer type="profile" />
+          </Route>
+          <Route>
+            Erreur 404
+          </Route>
         </Switch>
       </BrowserRouter>
     </Container>
