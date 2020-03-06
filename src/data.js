@@ -1,5 +1,5 @@
 export default [
-    { comments: [text: "Bonjour !"] },
+    { comments: [{ text: "Bonjour !", date: new Date() }] },
     { comments: [] },
     { comments: [] },
     { comments: [] },
