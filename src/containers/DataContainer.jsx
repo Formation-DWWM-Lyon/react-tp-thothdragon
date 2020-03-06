@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { ListGroup, Button } from 'react-bootstrap';
 import Loader from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
+import { PeopleList } from '../components';
 
 export default class DataContainer extends Component {
   state = {
@@ -11,7 +12,10 @@ export default class DataContainer extends Component {
 
   fetchData = () => {
     const { id } = this.props.match.params;
-    let url = `https://randomuser.me/api/?page=${id}&results=10&seed=zqsd&nat=fr`;
+    const now = new Date();
+    const seed = now.getMinutes();
+
+    let url = `https://randomuser.me/api/?page=${id}&results=10&seed=${seed}&nat=fr`;
     Axios.get(url)
       .then(response => {
         this.setState({ data: response.data });
@@ -21,7 +25,7 @@ export default class DataContainer extends Component {
 
   componentDidMount = () => {
     this.fetchData();
-    this.props.match.params.id = Number(this.props.match.params.id) + 1;
+    // this.props.match.params.id = Number(this.props.match.params.id) + 1;
   }
 
   componentDidUpdate = (prevProps) => {
@@ -30,7 +34,7 @@ export default class DataContainer extends Component {
     if (id !== prevProps.match.params.id) {
       this.setState({ data: null });
       this.fetchData();
-      this.props.match.params.id = Number(this.props.match.params.id) + 1;
+      // this.props.match.params.id = Number(this.props.match.params.id) + 1;
     }
   }
 
@@ -55,18 +59,14 @@ export default class DataContainer extends Component {
       console.log('LOG de DATA', data);
       return (
         <div>
-          <ListGroup>
-            {data.results.map((item, index) =>
-              <ListGroup.Item>
-                <Link to={`/${data.info.page}/profile`}>
-                  {item.name.title} {item.name.first} {item.name.last}
-                </Link>
-              </ListGroup.Item>
-            )}
-          </ListGroup>
-          <Link to={`/${this.props.match.params.id}`}>
+          <PeopleList
+            people={data}
+            fetchData={this.fetchData}
+          />
+
+          {/* <Link to={`/${this.props.match.params.id}`}>
             <Button>Page suivante</Button>
-          </Link>
+          </Link> */}
         </div>
       );
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListGroup, Card } from 'react-bootstrap';
-import LinkContainer from '../containers/LinkContainer';
+// import LinkContainer from '../containers/LinkContainer';
 
 const Character = ({ name, gender, birth_year, edited, homeworld, species }) =>
   <Card>
@@ -12,10 +12,10 @@ const Character = ({ name, gender, birth_year, edited, homeworld, species }) =>
       <ListGroup.Item>Gender : {gender}</ListGroup.Item>
       <ListGroup.Item>Birth year : {birth_year}</ListGroup.Item>
       <ListGroup.Item>
-        Homeworld : <LinkContainer url={homeworld} />
+        {/* Homeworld : <LinkContainer url={homeworld} /> */}
       </ListGroup.Item>
       <ListGroup.Item>
-        Species : {species.map((item, index) => <LinkContainer url={item} key={index} />)}
+        {/* Species : {species.map((item, index) => <LinkContainer url={item} key={index} />)} */}
       </ListGroup.Item>
     </ListGroup>
     <Card.Footer>

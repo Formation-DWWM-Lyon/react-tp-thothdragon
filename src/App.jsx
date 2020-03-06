@@ -32,7 +32,8 @@ function App() {
       
       <BrowserRouter>
         <Switch>
-          <Route exact path="/:id(\d+)" component={DataContainer} />
+          {/* <Route exact path="/:id(\d+)" component={DataContainer} /> */}
+          <Route exact path="/" component={DataContainer} />
           <Route exact path="/:id(\d+)/profile" component={DataContainer} />
         </Switch>
       </BrowserRouter>
