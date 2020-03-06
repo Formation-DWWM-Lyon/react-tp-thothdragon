@@ -1,24 +1,27 @@
 import React from 'react';
-import { ListGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import ProfileCard from './ProfileCard';
+import { Form } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 const PeopleList = ({ people, fetchData }) =>
-
-  <div>
-    <Button onClick={fetchData}>
-      Actualiser
+  <Form>
+    <Button variant="outline-primary" onClick={fetchData}>
+      <FontAwesomeIcon icon={faSyncAlt} />
     </Button>
-    <ListGroup>
+    <Form.Row>
       {people.results.map((person, index) =>
-        <ListGroup.Item>
+        <Col key={index}>
           {/* <Link to={`/${data.info.page}/profile`}> */}
-          {person.name.title} {person.name.first} {person.name.last}
+          {/* {person.name.title} {person.name.first} {person.name.last} */}
+          <ProfileCard {...person} />
           {/* </Link> */}
-        </ListGroup.Item>
+        </Col>
       )}
-    </ListGroup>
-  </div>
+    </Form.Row>
+  </Form>
   ;
 
 export default PeopleList;

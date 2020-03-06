@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { ListGroup, Button } from 'react-bootstrap';
 import Loader from 'react-loader-spinner';
-import { Link } from 'react-router-dom';
 import { PeopleList } from '../components';
 
 export default class DataContainer extends Component {

@@ -1,2 +1,2 @@
-export { default as Profile } from './profile';
+export { default as ProfileCard } from './ProfileCard';
 export { default as PeopleList } from './PeopleList';
