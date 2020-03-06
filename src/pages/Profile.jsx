@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { ProfileCard } from '../components';
+import { ProfileCard, CommentList, CommentForm } from '../components';
 import { Button } from 'react-bootstrap';
 
 const Profile = ({ people, match }) => {
@@ -16,6 +16,8 @@ const Profile = ({ people, match }) => {
         <ProfileCard {...person} />
         <div>
           Info complémentaire...
+          <CommentList personIndex={id} />
+          <CommentForm />
         </div>
       </div>
     </div>
