@@ -12,41 +12,54 @@ const componentByType = {
 export default class DataContainer extends Component {
   state = {
     data: null,
-  }
-
-  fetchData = () => {
-    // const { id } = this.props.match.params;
-    const now = new Date();
-    const seed = now.getMinutes();
-
-    // let url = `https://randomuser.me/api/?page=${id}&results=10&seed=${seed}&nat=fr`;
-    let url = `https://randomuser.me/api/?page=1&results=10&seed=${seed}&nat=fr`;
-    Axios.get(url)
-      .then(response => {
-        this.setState({ data: response.data });
-      })
-      .catch(error => console.log(error));
+    page: 1,
   }
 
   componentDidMount = () => {
-    this.fetchData();
-    // this.props.match.params.id = Number(this.props.match.params.id) + 1;
+    this.fetchData();    
   }
 
-  // componentDidUpdate = (prevProps) => {
-  //   const { id } = this.props.match.params;
+  componentDidUpdate = (prevProps, prevState) => {
+    const { page } = this.state;
+    if (prevState.page !== page) {
+      this.fetchData();
+    }    
+  }
 
-  //   if (id !== prevProps.match.params.id) {
-  //     this.setState({ data: null });
-  //     this.fetchData();
-  //   this.props.match.params.id = Number(this.props.match.params.id) + 1;
-  //   }
-  // }
+  fetchData = (page = this.state.page) => {
+    const now = new Date();
+    const seed = now.getMinutes();
+
+    let url = `https://randomuser.me/api/?page=${page}&results=10&seed=${seed}&nat=fr`;
+    Axios.get(url)
+      .then(response => this.setState({ data: response.data }))
+      .catch(error => console.log(error));      
+  }
+
+  nextPage = () => {
+    const { page } = this.state;
+    this.setState({ page: page + 1 });
+    
+  }
+
+  prevPage = () => {
+    const { page } = this.state;
+    if (page <= 1) {      
+      return;
+    }
+    this.setState({ page: page - 1 });    
+  }
+
+  methods = {
+    fetchData: this.fetchData,
+    nextPage: this.nextPage,
+    prevPage: this.prevPage,
+  }
+
 
   render = () => {
     const { type } = this.props;
-    const { data } = this.state;
-    // const { id } = 1;
+    const { data, page } = this.state;
 
     if (!data) {
       return (
@@ -67,7 +80,8 @@ export default class DataContainer extends Component {
     return (
       <ComponentName
         people={data.results}
-        fetchData={this.fetchData}
+        methods={this.methods}
+        page={page}
       />
     );
   }
